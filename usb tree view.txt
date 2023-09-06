@@ -1,0 +1,368 @@
+
+    =========================== USB Port2 ===========================
+
+Connection Status        : 0x01 (Device is connected)
+Port Chain               : 2-7-4-2
+
+      ========================== Summary =========================
+Vendor ID                : 0x1B1C (CORSAIR MEMORY INC.)
+Product ID               : 0x5678
+USB version              : 2.00
+Port maximum Speed       : Full-Speed
+Device maximum Speed     : High-Speed
+Device Connection Speed  : Full-Speed
+Self Powered             : no
+Demanded Current         : 500 mA
+Used Endpoints           : 7
+
+      ======================== USB Device ========================
+
+        +++++++++++++++++ Device Information ++++++++++++++++++
+Device Description       : USB Composite Device
+Device Path              : \\?\USB#VID_1B1C&PID_5678#7&5bc4f8c&0&2#{a5dcbf10-6530-11d2-901f-00c04fb951ed} (GUID_DEVINTERFACE_USB_DEVICE)
+Kernel Name              : \Device\USBPDO-8
+Device ID                : USB\VID_1B1C&PID_5678\7&5BC4F8C&0&2
+Hardware IDs             : USB\VID_1B1C&PID_5678&REV_0000 USB\VID_1B1C&PID_5678
+Driver KeyName           : {36fc9e60-c465-11cf-8056-444553540000}\0053 (GUID_DEVCLASS_USB)
+Driver                   : \SystemRoot\System32\drivers\usbccgp.sys (Version: 10.0.19041.2546  Date: 2023-02-24)
+Driver Inf               : C:\Windows\inf\usb.inf
+Legacy BusType           : PNPBus
+Class                    : USB
+Class GUID               : {36fc9e60-c465-11cf-8056-444553540000} (GUID_DEVCLASS_USB)
+Service                  : usbccgp
+Enumerator               : USB
+Location Info            : Port_#0002.Hub_#0004
+Location IDs             : PCIROOT(0)#PCI(1400)#USBROOT(0)#USB(7)#USB(4)#USB(2), ACPI(_SB_)#ACPI(PC00)#ACPI(XHCI)#ACPI(RHUB)#ACPI(HS07)#USB(4)#USB(2)
+Container ID             : {c3214eb8-4bd3-11ee-875d-bcf171a91b2d}
+Manufacturer Info        : (標準 USB 主控制器)
+Capabilities             : 0x84 (Removable, SurpriseRemovalOK)
+Status                   : 0x0180400A (DN_DRIVER_LOADED, DN_STARTED, DN_REMOVABLE, DN_NT_ENUMERATOR, DN_NT_DRIVER)
+Problem Code             : 0
+Address                  : 2
+HcDisableSelectiveSuspend: 0
+EnableSelectiveSuspend   : 0
+SelectiveSuspendEnabled  : 0
+EnhancedPowerMgmtEnabled : 0
+IdleInWorkingState       : 0
+WakeFromSleepState       : 0
+Power State              : D0 (supported: D0, D1, D2, D3, wake from D0, wake from D1, wake from D2)
+ Child Device 1          : USB 輸入裝置
+  Device ID              : USB\VID_1B1C&PID_5678&MI_00\8&2857E53D&0&0000
+  Class                  : HIDClass
+  Driver KeyName         : {745a17a0-74d3-11d0-b6fe-00a0c90f57da}\0083 (GUID_DEVCLASS_HIDCLASS)
+  Service                : HidUsb
+  Location               : 0000.0014.0000.007.004.002.000.000.000
+  LocationPaths          : PCIROOT(0)#PCI(1400)#USBROOT(0)#USB(7)#USB(4)#USB(2)#USBMI(0)  PCIROOT(0)#PCI(1400)#USBROOT(0)#USB(7)#USB(4)#USB(2)#USB(2)  ACPI(_SB_)#ACPI(PC00)#ACPI(XHCI)#ACPI(RHUB)#ACPI(HS07)#USB(4)#USB(2)#USBMI(0)  ACPI(_SB_)#ACPI(PC00)#ACPI(XHCI)#ACPI(RHUB)#ACPI(HS07)#USB(4)#USB(2)#USB(2)
+   Child Device 1        : HID Keyboard Device
+    Device Path 1        : \\?\HID#VID_1B1C&PID_5678&MI_00#9&15bb6ac3&0&0000#{884b96c3-56ef-11d1-bc8c-00a0c91405dd} (GUID_DEVINTERFACE_KEYBOARD)
+    Device Path 2        : \\?\HID#VID_1B1C&PID_5678&MI_00#9&15bb6ac3&0&0000#{4d1e55b2-f16f-11cf-88cb-001111000030}\kbd (GUID_DEVINTERFACE_HID)
+    Kernel Name          : \Device\0000025c
+    Device ID            : HID\VID_1B1C&PID_5678&MI_00\9&15BB6AC3&0&0000
+    Class                : Keyboard
+    Driver KeyName       : {4d36e96b-e325-11ce-bfc1-08002be10318}\0004 (GUID_DEVCLASS_KEYBOARD)
+    Service              : kbdhid
+ Child Device 2          : USB 輸入裝置
+  Device ID              : USB\VID_1B1C&PID_5678&MI_01\8&2857E53D&0&0001
+  Class                  : HIDClass
+  Driver KeyName         : {745a17a0-74d3-11d0-b6fe-00a0c90f57da}\0084 (GUID_DEVCLASS_HIDCLASS)
+  Service                : HidUsb
+  Location               : 0000.0014.0000.007.004.002.000.000.000
+  LocationPaths          : PCIROOT(0)#PCI(1400)#USBROOT(0)#USB(7)#USB(4)#USB(2)#USBMI(1)  ACPI(_SB_)#ACPI(PC00)#ACPI(XHCI)#ACPI(RHUB)#ACPI(HS07)#USB(4)#USB(2)#USBMI(1)
+   Child Device 1        : HID-compliant mouse
+    Device Path 1        : \\?\HID#VID_1B1C&PID_5678&MI_01#9&3992a885&0&0000#{4d1e55b2-f16f-11cf-88cb-001111000030} (GUID_DEVINTERFACE_HID)
+    Device Path 2        : \\?\HID#VID_1B1C&PID_5678&MI_01#9&3992a885&0&0000#{378de44c-56ef-11d1-bc8c-00a0c91405dd} (GUID_DEVINTERFACE_MOUSE)
+    Kernel Name          : \Device\0000025d
+    Device ID            : HID\VID_1B1C&PID_5678&MI_01\9&3992A885&0&0000
+    Class                : Mouse
+    Driver KeyName       : {4d36e96f-e325-11ce-bfc1-08002be10318}\0004 (GUID_DEVCLASS_MOUSE)
+    Service              : mouhid
+ Child Device 3          : USB 輸入裝置
+  Device ID              : USB\VID_1B1C&PID_5678&MI_02\8&2857E53D&0&0002
+  Class                  : HIDClass
+  Driver KeyName         : {745a17a0-74d3-11d0-b6fe-00a0c90f57da}\0085 (GUID_DEVCLASS_HIDCLASS)
+  Service                : HidUsb
+  Location               : 0000.0014.0000.007.004.002.000.000.000
+  LocationPaths          : PCIROOT(0)#PCI(1400)#USBROOT(0)#USB(7)#USB(4)#USB(2)#USBMI(2)  ACPI(_SB_)#ACPI(PC00)#ACPI(XHCI)#ACPI(RHUB)#ACPI(HS07)#USB(4)#USB(2)#USBMI(2)
+   Child Device 1        : 符合 HID 標準的廠商定義裝置
+    Device Path          : \\?\HID#VID_1B1C&PID_5678&MI_02#9&21cf1c40&0&0000#{4d1e55b2-f16f-11cf-88cb-001111000030} (GUID_DEVINTERFACE_HID)
+    Kernel Name          : \Device\0000025e
+    Device ID            : HID\VID_1B1C&PID_5678&MI_02\9&21CF1C40&0&0000
+    Class                : HIDClass
+    Driver KeyName       : {745a17a0-74d3-11d0-b6fe-00a0c90f57da}\0087 (GUID_DEVCLASS_HIDCLASS)
+ Child Device 4          : USB 輸入裝置
+  Device ID              : USB\VID_1B1C&PID_5678&MI_03\8&2857E53D&0&0003
+  Class                  : HIDClass
+  Driver KeyName         : {745a17a0-74d3-11d0-b6fe-00a0c90f57da}\0086 (GUID_DEVCLASS_HIDCLASS)
+  Service                : HidUsb
+  Location               : 0000.0014.0000.007.004.002.000.000.000
+  LocationPaths          : PCIROOT(0)#PCI(1400)#USBROOT(0)#USB(7)#USB(4)#USB(2)#USBMI(3)  ACPI(_SB_)#ACPI(PC00)#ACPI(XHCI)#ACPI(RHUB)#ACPI(HS07)#USB(4)#USB(2)#USBMI(3)
+   Child Device 1        : 符合 HID 標準的廠商定義裝置
+    Device Path          : \\?\HID#VID_1B1C&PID_5678&MI_03#9&78947e9&0&0000#{4d1e55b2-f16f-11cf-88cb-001111000030} (GUID_DEVINTERFACE_HID)
+    Kernel Name          : \Device\0000025f
+    Device ID            : HID\VID_1B1C&PID_5678&MI_03\9&78947E9&0&0000
+    Class                : HIDClass
+    Driver KeyName       : {745a17a0-74d3-11d0-b6fe-00a0c90f57da}\0088 (GUID_DEVCLASS_HIDCLASS)
+
+        +++++++++++++++++ Registry USB Flags +++++++++++++++++
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\usbflags\1B1C56780000
+ osvc                    : REG_BINARY 00 00
+
+        ---------------- Connection Information ---------------
+Connection Index         : 0x02 (Port 2)
+Connection Status        : 0x01 (DeviceConnected)
+Current Config Value     : 0x01 (Configuration 1)
+Device Address           : 0x1B (27)
+Is Hub                   : 0x00 (no)
+Device Bus Speed         : 0x01 (Full-Speed)
+Number Of Open Pipes     : 0x06 (6 pipes to data endpoints)
+Pipe[0]                  : EndpointID=1  Direction=IN   ScheduleOffset=0  Type=Interrupt
+Pipe[1]                  : EndpointID=2  Direction=OUT  ScheduleOffset=0  Type=Interrupt
+Pipe[2]                  : EndpointID=3  Direction=IN   ScheduleOffset=0  Type=Interrupt
+Pipe[3]                  : EndpointID=4  Direction=IN   ScheduleOffset=0  Type=Interrupt
+Pipe[4]                  : EndpointID=5  Direction=IN   ScheduleOffset=0  Type=Interrupt
+Pipe[5]                  : EndpointID=6  Direction=OUT  ScheduleOffset=0  Type=Interrupt
+Data (HexDump)           : 02 00 00 00 12 01 00 02 00 00 00 40 1C 1B 78 56   ...........@..xV
+                           00 00 01 02 00 01 01 01 00 1B 00 06 00 00 00 01   ................
+                           00 00 00 07 05 81 03 40 00 01 00 00 00 00 07 05   .......@........
+                           02 03 40 00 01 00 00 00 00 07 05 83 03 40 00 01   ..@..........@..
+                           00 00 00 00 07 05 84 03 40 00 01 00 00 00 00 07   ........@.......
+                           05 85 03 40 00 01 00 00 00 00 07 05 06 03 40 00   ...@..........@.
+                           01 00 00 00 00                                    .....
+
+        --------------- Connection Information V2 -------------
+Connection Index         : 0x02 (2)
+Length                   : 0x10 (16 bytes)
+SupportedUsbProtocols    : 0x01
+ Usb110                  : 1 (yes, port supports USB 1.1)
+ Usb200                  : 0 (no, port not supports USB 2.0)
+ Usb300                  : 0 (no, port not supports USB 3.0)
+ ReservedMBZ             : 0x00
+Flags                    : 0x00
+ DevIsOpAtSsOrHigher     : 0 (Device is not operating at SuperSpeed or higher)
+ DevIsSsCapOrHigher      : 0 (Device is not SuperSpeed capable or higher)
+ DevIsOpAtSsPlusOrHigher : 0 (Device is not operating at SuperSpeedPlus or higher)
+ DevIsSsPlusCapOrHigher  : 0 (Device is not SuperSpeedPlus capable or higher)
+ ReservedMBZ             : 0x00
+Data (HexDump)           : 02 00 00 00 10 00 00 00 01 00 00 00 00 00 00 00   ................
+
+    ---------------------- Device Descriptor ----------------------
+bLength                  : 0x12 (18 bytes)
+bDescriptorType          : 0x01 (Device Descriptor)
+bcdUSB                   : 0x200 (USB Version 2.00)
+bDeviceClass             : 0x00 (defined by the interface descriptors)
+bDeviceSubClass          : 0x00
+bDeviceProtocol          : 0x00
+bMaxPacketSize0          : 0x40 (64 bytes)
+idVendor                 : 0x1B1C (CORSAIR MEMORY INC.)
+idProduct                : 0x5678
+bcdDevice                : 0x0000
+iManufacturer            : 0x01 (String Descriptor 1)
+ Language 0x0409         : "CORSAIR"
+iProduct                 : 0x02 (String Descriptor 2)
+ Language 0x0409         : "HID Device"
+iSerialNumber            : 0x00 (No String Descriptor)
+bNumConfigurations       : 0x01 (1 Configuration)
+Data (HexDump)           : 12 01 00 02 00 00 00 40 1C 1B 78 56 00 00 01 02   .......@..xV....
+                           00 01                                             ..
+
+    ------------------ Configuration Descriptor -------------------
+bLength                  : 0x09 (9 bytes)
+bDescriptorType          : 0x02 (Configuration Descriptor)
+wTotalLength             : 0x007B (123 bytes)
+bNumInterfaces           : 0x04 (4 Interfaces)
+bConfigurationValue      : 0x01 (Configuration 1)
+iConfiguration           : 0x00 (No String Descriptor)
+bmAttributes             : 0xA0
+ D7: Reserved, set 1     : 0x01
+ D6: Self Powered        : 0x00 (no)
+ D5: Remote Wakeup       : 0x01 (yes)
+ D4..0: Reserved, set 0  : 0x00
+MaxPower                 : 0xFA (500 mA)
+Data (HexDump)           : 09 02 7B 00 04 01 00 A0 FA 09 04 00 00 02 03 00   ..{.............
+                           01 00 09 21 11 01 00 01 22 3F 00 07 05 81 03 40   ...!...."?.....@
+                           00 01 07 05 02 03 40 00 01 09 04 01 00 01 03 00   ......@.........
+                           02 00 09 21 10 01 00 01 22 34 00 07 05 83 03 40   ...!...."4.....@
+                           00 01 09 04 02 00 01 03 00 00 00 09 21 11 01 00   ............!...
+                           01 22 23 00 07 05 84 03 40 00 01 09 04 03 00 02   ."#.....@.......
+                           03 00 00 00 09 21 11 01 00 01 22 22 00 07 05 85   .....!....""....
+                           03 40 00 01 07 05 06 03 40 00 01                  .@......@..
+
+        ---------------- Interface Descriptor -----------------
+bLength                  : 0x09 (9 bytes)
+bDescriptorType          : 0x04 (Interface Descriptor)
+bInterfaceNumber         : 0x00
+bAlternateSetting        : 0x00
+bNumEndpoints            : 0x02 (2 Endpoints)
+bInterfaceClass          : 0x03 (HID - Human Interface Device)
+bInterfaceSubClass       : 0x00 (None)
+bInterfaceProtocol       : 0x01 (Keyboard)
+iInterface               : 0x00 (No String Descriptor)
+Data (HexDump)           : 09 04 00 00 02 03 00 01 00                        .........
+
+        ------------------- HID Descriptor --------------------
+bLength                  : 0x09 (9 bytes)
+bDescriptorType          : 0x21 (HID Descriptor)
+bcdHID                   : 0x0111 (HID Version 1.11)
+bCountryCode             : 0x00 (00 = not localized)
+bNumDescriptors          : 0x01
+Data (HexDump)           : 09 21 11 01 00 01 22 3F 00                        .!...."?.
+Descriptor 1:
+bDescriptorType          : 0x22 (Class=Report)
+wDescriptorLength        : 0x003F (63 bytes)
+Error reading descriptor : ERROR_INVALID_PARAMETER (due to a obscure limitation of the Win32 USB API, see UsbTreeView.txt)
+
+        ----------------- Endpoint Descriptor -----------------
+bLength                  : 0x07 (7 bytes)
+bDescriptorType          : 0x05 (Endpoint Descriptor)
+bEndpointAddress         : 0x81 (Direction=IN EndpointID=1)
+bmAttributes             : 0x03 (TransferType=Interrupt)
+wMaxPacketSize           : 0x0040 (64 bytes)
+bInterval                : 0x01 (1 ms)
+Data (HexDump)           : 07 05 81 03 40 00 01                              ....@..
+
+        ----------------- Endpoint Descriptor -----------------
+bLength                  : 0x07 (7 bytes)
+bDescriptorType          : 0x05 (Endpoint Descriptor)
+bEndpointAddress         : 0x02 (Direction=OUT EndpointID=2)
+bmAttributes             : 0x03 (TransferType=Interrupt)
+wMaxPacketSize           : 0x0040 (64 bytes)
+bInterval                : 0x01 (1 ms)
+Data (HexDump)           : 07 05 02 03 40 00 01                              ....@..
+
+        ---------------- Interface Descriptor -----------------
+bLength                  : 0x09 (9 bytes)
+bDescriptorType          : 0x04 (Interface Descriptor)
+bInterfaceNumber         : 0x01
+bAlternateSetting        : 0x00
+bNumEndpoints            : 0x01 (1 Endpoint)
+bInterfaceClass          : 0x03 (HID - Human Interface Device)
+bInterfaceSubClass       : 0x00 (None)
+bInterfaceProtocol       : 0x02 (Mouse)
+iInterface               : 0x00 (No String Descriptor)
+Data (HexDump)           : 09 04 01 00 01 03 00 02 00                        .........
+
+        ------------------- HID Descriptor --------------------
+bLength                  : 0x09 (9 bytes)
+bDescriptorType          : 0x21 (HID Descriptor)
+bcdHID                   : 0x0110 (HID Version 1.10)
+bCountryCode             : 0x00 (00 = not localized)
+bNumDescriptors          : 0x01
+Data (HexDump)           : 09 21 10 01 00 01 22 34 00                        .!...."4.
+Descriptor 1:
+bDescriptorType          : 0x22 (Class=Report)
+wDescriptorLength        : 0x0034 (52 bytes)
+Error reading descriptor : ERROR_INVALID_PARAMETER (due to a obscure limitation of the Win32 USB API, see UsbTreeView.txt)
+
+        ----------------- Endpoint Descriptor -----------------
+bLength                  : 0x07 (7 bytes)
+bDescriptorType          : 0x05 (Endpoint Descriptor)
+bEndpointAddress         : 0x83 (Direction=IN EndpointID=3)
+bmAttributes             : 0x03 (TransferType=Interrupt)
+wMaxPacketSize           : 0x0040 (64 bytes)
+bInterval                : 0x01 (1 ms)
+Data (HexDump)           : 07 05 83 03 40 00 01                              ....@..
+
+        ---------------- Interface Descriptor -----------------
+bLength                  : 0x09 (9 bytes)
+bDescriptorType          : 0x04 (Interface Descriptor)
+bInterfaceNumber         : 0x02
+bAlternateSetting        : 0x00
+bNumEndpoints            : 0x01 (1 Endpoint)
+bInterfaceClass          : 0x03 (HID - Human Interface Device)
+bInterfaceSubClass       : 0x00 (None)
+bInterfaceProtocol       : 0x00 (None)
+iInterface               : 0x00 (No String Descriptor)
+Data (HexDump)           : 09 04 02 00 01 03 00 00 00                        .........
+
+        ------------------- HID Descriptor --------------------
+bLength                  : 0x09 (9 bytes)
+bDescriptorType          : 0x21 (HID Descriptor)
+bcdHID                   : 0x0111 (HID Version 1.11)
+bCountryCode             : 0x00 (00 = not localized)
+bNumDescriptors          : 0x01
+Data (HexDump)           : 09 21 11 01 00 01 22 23 00                        .!...."#.
+Descriptor 1:
+bDescriptorType          : 0x22 (Class=Report)
+wDescriptorLength        : 0x0023 (35 bytes)
+Error reading descriptor : ERROR_INVALID_PARAMETER (due to a obscure limitation of the Win32 USB API, see UsbTreeView.txt)
+
+        ----------------- Endpoint Descriptor -----------------
+bLength                  : 0x07 (7 bytes)
+bDescriptorType          : 0x05 (Endpoint Descriptor)
+bEndpointAddress         : 0x84 (Direction=IN EndpointID=4)
+bmAttributes             : 0x03 (TransferType=Interrupt)
+wMaxPacketSize           : 0x0040 (64 bytes)
+bInterval                : 0x01 (1 ms)
+Data (HexDump)           : 07 05 84 03 40 00 01                              ....@..
+
+        ---------------- Interface Descriptor -----------------
+bLength                  : 0x09 (9 bytes)
+bDescriptorType          : 0x04 (Interface Descriptor)
+bInterfaceNumber         : 0x03
+bAlternateSetting        : 0x00
+bNumEndpoints            : 0x02 (2 Endpoints)
+bInterfaceClass          : 0x03 (HID - Human Interface Device)
+bInterfaceSubClass       : 0x00 (None)
+bInterfaceProtocol       : 0x00 (None)
+iInterface               : 0x00 (No String Descriptor)
+Data (HexDump)           : 09 04 03 00 02 03 00 00 00                        .........
+
+        ------------------- HID Descriptor --------------------
+bLength                  : 0x09 (9 bytes)
+bDescriptorType          : 0x21 (HID Descriptor)
+bcdHID                   : 0x0111 (HID Version 1.11)
+bCountryCode             : 0x00 (00 = not localized)
+bNumDescriptors          : 0x01
+Data (HexDump)           : 09 21 11 01 00 01 22 22 00                        .!...."".
+Descriptor 1:
+bDescriptorType          : 0x22 (Class=Report)
+wDescriptorLength        : 0x0022 (34 bytes)
+Error reading descriptor : ERROR_INVALID_PARAMETER (due to a obscure limitation of the Win32 USB API, see UsbTreeView.txt)
+
+        ----------------- Endpoint Descriptor -----------------
+bLength                  : 0x07 (7 bytes)
+bDescriptorType          : 0x05 (Endpoint Descriptor)
+bEndpointAddress         : 0x85 (Direction=IN EndpointID=5)
+bmAttributes             : 0x03 (TransferType=Interrupt)
+wMaxPacketSize           : 0x0040 (64 bytes)
+bInterval                : 0x01 (1 ms)
+Data (HexDump)           : 07 05 85 03 40 00 01                              ....@..
+
+        ----------------- Endpoint Descriptor -----------------
+bLength                  : 0x07 (7 bytes)
+bDescriptorType          : 0x05 (Endpoint Descriptor)
+bEndpointAddress         : 0x06 (Direction=OUT EndpointID=6)
+bmAttributes             : 0x03 (TransferType=Interrupt)
+wMaxPacketSize           : 0x0040 (64 bytes)
+bInterval                : 0x01 (1 ms)
+Data (HexDump)           : 07 05 06 03 40 00 01                              ....@..
+
+    ----------------- Device Qualifier Descriptor -----------------
+bLength                  : 0x0A (10 bytes)
+bDescriptorType          : 0x06 (Device_qualifier Descriptor)
+bcdUSB                   : 0x200 (USB Version 2.00)
+bDeviceClass             : 0x00 (defined by the interface descriptors)
+bDeviceSubClass          : 0x00
+bDeviceProtocol          : 0x00
+bMaxPacketSize0          : 0x40 (64 Bytes)
+bNumConfigurations       : 0x01 (1 other-speed configuration)
+bReserved                : 0x00
+Data (HexDump)           : 0A 06 00 02 00 00 00 40 01 00                     .......@..
+
+      -------------------- String Descriptors -------------------
+             ------ String Descriptor 0 ------
+bLength                  : 0x04 (4 bytes)
+bDescriptorType          : 0x03 (String Descriptor)
+Language ID[0]           : 0x0409 (English - United States)
+Data (HexDump)           : 04 03 09 04                                       ....
+             ------ String Descriptor 1 ------
+bLength                  : 0x10 (16 bytes)
+bDescriptorType          : 0x03 (String Descriptor)
+Language 0x0409          : "CORSAIR"
+Data (HexDump)           : 10 03 43 00 4F 00 52 00 53 00 41 00 49 00 52 00   ..C.O.R.S.A.I.R.
+             ------ String Descriptor 2 ------
+bLength                  : 0x16 (22 bytes)
+bDescriptorType          : 0x03 (String Descriptor)
+Language 0x0409          : "HID Device"
+Data (HexDump)           : 16 03 48 00 49 00 44 00 20 00 44 00 65 00 76 00   ..H.I.D. .D.e.v.
+                           69 00 63 00 65 00                                 i.c.e.
