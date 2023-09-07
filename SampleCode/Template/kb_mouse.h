@@ -23,6 +23,10 @@
 #define HID_RPT_TYPE_OUTPUT     0x02
 #define HID_RPT_TYPE_FEATURE    0x03
 
+/*!<USB HID Protocol Type */
+#define HID_BOOT_PROTOCOL       0x00
+#define HID_REPORT_PROTOCOL     0x01
+
 /*-------------------------------------------------------------*/
 /* Define EP maximum packet size */
 #define CEP_MAX_PKT_SIZE        64
@@ -82,6 +86,17 @@
 
 */
 
+#define INTERFACE_NUM               (4)
+#define INTERFACE_1                 (0)
+#define INTERFACE_2                 (1)
+#define INTERFACE_3                 (2)
+#define INTERFACE_4                 (3)
+
+#define INTERFACE_1_EP_CNT          (2) // KEYBOARD IN/OUT
+#define INTERFACE_2_EP_CNT          (1) // MOUSE IN
+#define INTERFACE_3_EP_CNT          (1) // VENDORPAGE IN
+#define INTERFACE_4_EP_CNT          (2) // VENDORPAGE IN/OUT
+
 /* KEYBOARD <EPA/EPB> */
 #define KB_INT_IN_EP_NUM            0x01
 #define KB_INT_IN_INTERVAL          0x01
@@ -103,6 +118,10 @@
 
 #define VENDOR02_INT_OT_EP_NUM      0x06
 #define VENDOR02_INT_OT_INTERVAL    0x01
+
+#define USBD_SELF_POWERED           0
+#define USBD_REMOTE_WAKEUP          0
+#define USBD_MAX_POWER              50  /* The unit is in 2mA. ex: 50 * 2mA = 100mA */
 
 /* Define Descriptor information */
 #define LEN_CONFIG_AND_SUBORDINATE      (LEN_CONFIG + (LEN_INTERFACE*4) + (LEN_HID*4) + (LEN_ENDPOINT*6))

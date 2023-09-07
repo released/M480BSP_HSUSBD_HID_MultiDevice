@@ -143,21 +143,21 @@ uint8_t gu8ConfigDescriptor[] __attribute__((aligned(4))) = {
     DESC_CONFIG,                            /* bDescriptorType: Configuration */
     LEN_CONFIG_AND_SUBORDINATE & 0x00FF,    /* wTotalLength */
     ((LEN_CONFIG_AND_SUBORDINATE & 0xFF00) >> 8),
-    0x04,                                   /*bNumInterfaces: Number of Interface count*/
+    INTERFACE_NUM,                          /*bNumInterfaces: Number of Interface count*/
     0x01,                                   /*bConfigurationValue: Configuration value*/
     0x00,                                   /*iConfiguration: Index of string descriptor describing the configuration*/
-    0xA0,                                   /*bmAttributes: bus powered and Support Remote Wake-up */
-    0xFA,                                   /*MaxPower 500 mA: this current is used for detecting Vbus*/
+    0x80 | (USBD_SELF_POWERED << 6) | (USBD_REMOTE_WAKEUP << 5), /*bmAttributes: bus powered and Support Remote Wake-up */
+    USBD_MAX_POWER,                         /*MaxPower 500 mA: this current is used for detecting Vbus*/
     /* 9 */
 
     /****************** Descriptor of interface *********************/
     LEN_INTERFACE,                          /*bLength: Interface Descriptor size*/
     DESC_INTERFACE,                         /*bDescriptorType: Interface descriptor type*/
-    0x00,                                   /*bInterfaceNumber: Number of Interface*/
+    INTERFACE_1,                            /*bInterfaceNumber: Number of Interface*/
     0x00,                                   /*bAlternateSetting: Alternate setting*/
-    0x02,                                   /*bNumEndpoints*/
+    INTERFACE_1_EP_CNT,                     /*bNumEndpoints*/
     0x03,                                   /*bInterfaceClass: CUSTOM_HID*/
-    0x00,                                   /*bInterfaceSubClass : 1=Support Boot, 0=No Boot*/
+    0x01,                                   /*bInterfaceSubClass : 1=Support Boot, 0=No Boot*/
     HID_KEYBOARD,                           /*nInterfaceProtocol : 0=none, 1=keyboard, 2=mouse*/
     0x00,                                   /*iInterface: Index of string descriptor*/
 
@@ -192,11 +192,11 @@ uint8_t gu8ConfigDescriptor[] __attribute__((aligned(4))) = {
     /************** Descriptor of interface ****************/
     LEN_INTERFACE,                          /*bLength: Interface Descriptor size*/
     DESC_INTERFACE,                         /*bDescriptorType: Interface descriptor type*/
-    0x01,                                   /*bInterfaceNumber: Number of Interface*/
+    INTERFACE_2,                            /*bInterfaceNumber: Number of Interface*/
     0x00,                                   /*bAlternateSetting: Alternate setting*/
-    0x01,                                   /*bNumEndpoints*/
+    INTERFACE_2_EP_CNT,                     /*bNumEndpoints*/
     0x03,                                   /*bInterfaceClass: HID*/
-    0x00,                                   /*bInterfaceSubClass : 1=BOOT, 0=no boot*/
+    0x01,                                   /*bInterfaceSubClass : 1=BOOT, 0=no boot*/
     HID_MOUSE,                              /*nInterfaceProtocol : 0=none, 1=keyboard, 2=mouse*/
     0x00,                                   /*iInterface: Index of string descriptor*/
 
@@ -223,9 +223,9 @@ uint8_t gu8ConfigDescriptor[] __attribute__((aligned(4))) = {
     /****************** Descriptor of interface *********************/
     LEN_INTERFACE,                          /*bLength: Interface Descriptor size*/
     DESC_INTERFACE,                         /*bDescriptorType: Interface descriptor type*/
-    0x02,                                   /*bInterfaceNumber: Number of Interface*/
+    INTERFACE_3,                            /*bInterfaceNumber: Number of Interface*/
     0x00,                                   /*bAlternateSetting: Alternate setting*/
-    0x01,                                   /*bNumEndpoints*/
+    INTERFACE_3_EP_CNT,                     /*bNumEndpoints*/
     0x03,                                   /*bInterfaceClass: HID*/
     0x00,                                   /*bInterfaceSubClass : 1=Support Boot, 0=No boot*/
     HID_NONE,                               /*nInterfaceProtocol : 0=none, 1=keyboard, 2=mouse*/
@@ -254,13 +254,13 @@ uint8_t gu8ConfigDescriptor[] __attribute__((aligned(4))) = {
     /*-------------------    #ifc4:Custom#    -------------------------*/
     LEN_INTERFACE,                  /*bLength: Interface Descriptor size*/
     DESC_INTERFACE,                 /*bDescriptorType: Interface descriptor type*/
-    0x03,                           /*bInterfaceNumber: Number of Interface*/
+    INTERFACE_4,                    /*bInterfaceNumber: Number of Interface*/
     0x00,                           /*bAlternateSetting: Alternate setting*/
-    0x02,                           /*bNumEndpoints*/
+    INTERFACE_4_EP_CNT,             /*bNumEndpoints*/
     0x03,                           /*bInterfaceClass: CUSTOM_HID*/
     0x00,                           /*bInterfaceSubClass : 1=Support Boot, 0=No Boot*/
     HID_NONE,                       /*nInterfaceProtocol : 0=none, 1=keyboard, 2=mouse*/
-    0,                              /*iInterface: Index of string descriptor*/
+    0x00,                           /*iInterface: Index of string descriptor*/
 
     LEN_HID,                        /*bLength: CUSTOM_HID Descriptor size*/
     DESC_HID,                       /*bDescriptorType: CUSTOM_HID*/
@@ -339,21 +339,21 @@ uint8_t gu8ConfigDescriptorFS[] __attribute__((aligned(4))) = {
     DESC_CONFIG,                            /* bDescriptorType: Configuration */
     LEN_CONFIG_AND_SUBORDINATE & 0x00FF,    /* wTotalLength */
     ((LEN_CONFIG_AND_SUBORDINATE & 0xFF00) >> 8),
-    0x04,                                   /*bNumInterfaces: Number of Interface count*/
+    INTERFACE_NUM,                          /*bNumInterfaces: Number of Interface count*/
     0x01,                                   /*bConfigurationValue: Configuration value*/
     0x00,                                   /*iConfiguration: Index of string descriptor describing the configuration*/
-    0xA0,                                   /*bmAttributes: bus powered and Support Remote Wake-up */
-    0xFA,                                   /*MaxPower 500 mA: this current is used for detecting Vbus*/
+    0x80 | (USBD_SELF_POWERED << 6) | (USBD_REMOTE_WAKEUP << 5), /*bmAttributes: bus powered and Support Remote Wake-up */
+    USBD_MAX_POWER,                         /*MaxPower 500 mA: this current is used for detecting Vbus*/
     /* 9 */
 
     /****************** Descriptor of interface *********************/
     LEN_INTERFACE,                          /*bLength: Interface Descriptor size*/
     DESC_INTERFACE,                         /*bDescriptorType: Interface descriptor type*/
-    0x00,                                   /*bInterfaceNumber: Number of Interface*/
+    INTERFACE_1,                            /*bInterfaceNumber: Number of Interface*/
     0x00,                                   /*bAlternateSetting: Alternate setting*/
-    0x02,                                   /*bNumEndpoints*/
+    INTERFACE_1_EP_CNT,                     /*bNumEndpoints*/
     0x03,                                   /*bInterfaceClass: CUSTOM_HID*/
-    0x00,                                   /*bInterfaceSubClass : 1=Support Boot, 0=No Boot*/
+    0x01,                                   /*bInterfaceSubClass : 1=Support Boot, 0=No Boot*/
     HID_KEYBOARD,                           /*nInterfaceProtocol : 0=none, 1=keyboard, 2=mouse*/
     0x00,                                   /*iInterface: Index of string descriptor*/
 
@@ -388,11 +388,11 @@ uint8_t gu8ConfigDescriptorFS[] __attribute__((aligned(4))) = {
     /************** Descriptor of interface ****************/
     LEN_INTERFACE,                          /*bLength: Interface Descriptor size*/
     DESC_INTERFACE,                         /*bDescriptorType: Interface descriptor type*/
-    0x01,                                   /*bInterfaceNumber: Number of Interface*/
+    INTERFACE_2,                            /*bInterfaceNumber: Number of Interface*/
     0x00,                                   /*bAlternateSetting: Alternate setting*/
-    0x01,                                   /*bNumEndpoints*/
+    INTERFACE_2_EP_CNT,                     /*bNumEndpoints*/
     0x03,                                   /*bInterfaceClass: HID*/
-    0x00,                                   /*bInterfaceSubClass : 1=BOOT, 0=no boot*/
+    0x01,                                   /*bInterfaceSubClass : 1=BOOT, 0=no boot*/
     HID_MOUSE,                              /*nInterfaceProtocol : 0=none, 1=keyboard, 2=mouse*/
     0x00,                                   /*iInterface: Index of string descriptor*/
 
@@ -419,9 +419,9 @@ uint8_t gu8ConfigDescriptorFS[] __attribute__((aligned(4))) = {
     /****************** Descriptor of interface *********************/
     LEN_INTERFACE,                          /*bLength: Interface Descriptor size*/
     DESC_INTERFACE,                         /*bDescriptorType: Interface descriptor type*/
-    0x02,                                   /*bInterfaceNumber: Number of Interface*/
+    INTERFACE_3,                            /*bInterfaceNumber: Number of Interface*/
     0x00,                                   /*bAlternateSetting: Alternate setting*/
-    0x01,                                   /*bNumEndpoints*/
+    INTERFACE_3_EP_CNT,                     /*bNumEndpoints*/
     0x03,                                   /*bInterfaceClass: HID*/
     0x00,                                   /*bInterfaceSubClass : 1=Support Boot, 0=No boot*/
     HID_NONE,                               /*nInterfaceProtocol : 0=none, 1=keyboard, 2=mouse*/
@@ -450,13 +450,13 @@ uint8_t gu8ConfigDescriptorFS[] __attribute__((aligned(4))) = {
     /*-------------------    #ifc4:Custom#    -------------------------*/
     LEN_INTERFACE,                  /*bLength: Interface Descriptor size*/
     DESC_INTERFACE,                 /*bDescriptorType: Interface descriptor type*/
-    0x03,                           /*bInterfaceNumber: Number of Interface*/
+    INTERFACE_4,                    /*bInterfaceNumber: Number of Interface*/
     0x00,                           /*bAlternateSetting: Alternate setting*/
-    0x02,                           /*bNumEndpoints*/
+    INTERFACE_4_EP_CNT,             /*bNumEndpoints*/
     0x03,                           /*bInterfaceClass: CUSTOM_HID*/
     0x00,                           /*bInterfaceSubClass : 1=Support Boot, 0=No Boot*/
     HID_NONE,                       /*nInterfaceProtocol : 0=none, 1=keyboard, 2=mouse*/
-    0,                              /*iInterface: Index of string descriptor*/
+    0x00,                           /*iInterface: Index of string descriptor*/
 
     LEN_HID,                        /*bLength: CUSTOM_HID Descriptor size*/
     DESC_HID,                       /*bDescriptorType: CUSTOM_HID*/
@@ -493,21 +493,21 @@ uint8_t gu8OtherConfigDescriptorHS[] __attribute__((aligned(4))) = {
     DESC_CONFIG,                            /* bDescriptorType: Configuration */
     LEN_CONFIG_AND_SUBORDINATE & 0x00FF,    /* wTotalLength */
     ((LEN_CONFIG_AND_SUBORDINATE & 0xFF00) >> 8),
-    0x04,                                   /*bNumInterfaces: Number of Interface count*/
+    INTERFACE_NUM,                          /*bNumInterfaces: Number of Interface count*/
     0x01,                                   /*bConfigurationValue: Configuration value*/
     0x00,                                   /*iConfiguration: Index of string descriptor describing the configuration*/
-    0xA0,                                   /*bmAttributes: bus powered and Support Remote Wake-up */
-    0xFA,                                   /*MaxPower 500 mA: this current is used for detecting Vbus*/
+    0x80 | (USBD_SELF_POWERED << 6) | (USBD_REMOTE_WAKEUP << 5), /*bmAttributes: bus powered and Support Remote Wake-up */
+    USBD_MAX_POWER,                         /*MaxPower 500 mA: this current is used for detecting Vbus*/
     /* 9 */
 
     /****************** Descriptor of interface *********************/
     LEN_INTERFACE,                          /*bLength: Interface Descriptor size*/
     DESC_INTERFACE,                         /*bDescriptorType: Interface descriptor type*/
-    0x00,                                   /*bInterfaceNumber: Number of Interface*/
+    INTERFACE_1,                            /*bInterfaceNumber: Number of Interface*/
     0x00,                                   /*bAlternateSetting: Alternate setting*/
-    0x02,                                   /*bNumEndpoints*/
+    INTERFACE_1_EP_CNT,                     /*bNumEndpoints*/
     0x03,                                   /*bInterfaceClass: CUSTOM_HID*/
-    0x00,                                   /*bInterfaceSubClass : 1=Support Boot, 0=No Boot*/
+    0x01,                                   /*bInterfaceSubClass : 1=Support Boot, 0=No Boot*/
     HID_KEYBOARD,                           /*nInterfaceProtocol : 0=none, 1=keyboard, 2=mouse*/
     0x00,                                   /*iInterface: Index of string descriptor*/
 
@@ -542,11 +542,11 @@ uint8_t gu8OtherConfigDescriptorHS[] __attribute__((aligned(4))) = {
     /************** Descriptor of interface ****************/
     LEN_INTERFACE,                          /*bLength: Interface Descriptor size*/
     DESC_INTERFACE,                         /*bDescriptorType: Interface descriptor type*/
-    0x01,                                   /*bInterfaceNumber: Number of Interface*/
+    INTERFACE_2,                            /*bInterfaceNumber: Number of Interface*/
     0x00,                                   /*bAlternateSetting: Alternate setting*/
-    0x01,                                   /*bNumEndpoints*/
+    INTERFACE_2_EP_CNT,                     /*bNumEndpoints*/
     0x03,                                   /*bInterfaceClass: HID*/
-    0x00,                                   /*bInterfaceSubClass : 1=BOOT, 0=no boot*/
+    0x01,                                   /*bInterfaceSubClass : 1=BOOT, 0=no boot*/
     HID_MOUSE,                              /*nInterfaceProtocol : 0=none, 1=keyboard, 2=mouse*/
     0x00,                                   /*iInterface: Index of string descriptor*/
 
@@ -573,9 +573,9 @@ uint8_t gu8OtherConfigDescriptorHS[] __attribute__((aligned(4))) = {
     /****************** Descriptor of interface *********************/
     LEN_INTERFACE,                          /*bLength: Interface Descriptor size*/
     DESC_INTERFACE,                         /*bDescriptorType: Interface descriptor type*/
-    0x02,                                   /*bInterfaceNumber: Number of Interface*/
+    INTERFACE_3,                            /*bInterfaceNumber: Number of Interface*/
     0x00,                                   /*bAlternateSetting: Alternate setting*/
-    0x01,                                   /*bNumEndpoints*/
+    INTERFACE_3_EP_CNT,                     /*bNumEndpoints*/
     0x03,                                   /*bInterfaceClass: HID*/
     0x00,                                   /*bInterfaceSubClass : 1=Support Boot, 0=No boot*/
     HID_NONE,                               /*nInterfaceProtocol : 0=none, 1=keyboard, 2=mouse*/
@@ -604,13 +604,13 @@ uint8_t gu8OtherConfigDescriptorHS[] __attribute__((aligned(4))) = {
     /*-------------------    #ifc4:Custom#    -------------------------*/
     LEN_INTERFACE,                  /*bLength: Interface Descriptor size*/
     DESC_INTERFACE,                 /*bDescriptorType: Interface descriptor type*/
-    0x03,                           /*bInterfaceNumber: Number of Interface*/
+    INTERFACE_4,                    /*bInterfaceNumber: Number of Interface*/
     0x00,                           /*bAlternateSetting: Alternate setting*/
-    0x02,                           /*bNumEndpoints*/
+    INTERFACE_4_EP_CNT,             /*bNumEndpoints*/
     0x03,                           /*bInterfaceClass: CUSTOM_HID*/
     0x00,                           /*bInterfaceSubClass : 1=Support Boot, 0=No Boot*/
     HID_NONE,                       /*nInterfaceProtocol : 0=none, 1=keyboard, 2=mouse*/
-    0,                              /*iInterface: Index of string descriptor*/
+    0x00,                           /*iInterface: Index of string descriptor*/
 
     LEN_HID,                        /*bLength: CUSTOM_HID Descriptor size*/
     DESC_HID,                       /*bDescriptorType: CUSTOM_HID*/
@@ -647,21 +647,21 @@ uint8_t gu8OtherConfigDescriptorFS[] __attribute__((aligned(4))) = {
     DESC_CONFIG,                            /* bDescriptorType: Configuration */
     LEN_CONFIG_AND_SUBORDINATE & 0x00FF,    /* wTotalLength */
     ((LEN_CONFIG_AND_SUBORDINATE & 0xFF00) >> 8),
-    0x04,                                   /*bNumInterfaces: Number of Interface count*/
+    INTERFACE_NUM,                          /*bNumInterfaces: Number of Interface count*/
     0x01,                                   /*bConfigurationValue: Configuration value*/
     0x00,                                   /*iConfiguration: Index of string descriptor describing the configuration*/
-    0xA0,                                   /*bmAttributes: bus powered and Support Remote Wake-up */
-    0xFA,                                   /*MaxPower 500 mA: this current is used for detecting Vbus*/
+    0x80 | (USBD_SELF_POWERED << 6) | (USBD_REMOTE_WAKEUP << 5), /*bmAttributes: bus powered and Support Remote Wake-up */
+    USBD_MAX_POWER,                         /*MaxPower 500 mA: this current is used for detecting Vbus*/
     /* 9 */
 
     /****************** Descriptor of interface *********************/
     LEN_INTERFACE,                          /*bLength: Interface Descriptor size*/
     DESC_INTERFACE,                         /*bDescriptorType: Interface descriptor type*/
-    0x00,                                   /*bInterfaceNumber: Number of Interface*/
+    INTERFACE_1,                            /*bInterfaceNumber: Number of Interface*/
     0x00,                                   /*bAlternateSetting: Alternate setting*/
-    0x02,                                   /*bNumEndpoints*/
+    INTERFACE_1_EP_CNT,                     /*bNumEndpoints*/
     0x03,                                   /*bInterfaceClass: CUSTOM_HID*/
-    0x00,                                   /*bInterfaceSubClass : 1=Support Boot, 0=No Boot*/
+    0x01,                                   /*bInterfaceSubClass : 1=Support Boot, 0=No Boot*/
     HID_KEYBOARD,                           /*nInterfaceProtocol : 0=none, 1=keyboard, 2=mouse*/
     0x00,                                   /*iInterface: Index of string descriptor*/
 
@@ -696,11 +696,11 @@ uint8_t gu8OtherConfigDescriptorFS[] __attribute__((aligned(4))) = {
     /************** Descriptor of interface ****************/
     LEN_INTERFACE,                          /*bLength: Interface Descriptor size*/
     DESC_INTERFACE,                         /*bDescriptorType: Interface descriptor type*/
-    0x01,                                   /*bInterfaceNumber: Number of Interface*/
+    INTERFACE_2,                            /*bInterfaceNumber: Number of Interface*/
     0x00,                                   /*bAlternateSetting: Alternate setting*/
-    0x01,                                   /*bNumEndpoints*/
+    INTERFACE_2_EP_CNT,                     /*bNumEndpoints*/
     0x03,                                   /*bInterfaceClass: HID*/
-    0x00,                                   /*bInterfaceSubClass : 1=BOOT, 0=no boot*/
+    0x01,                                   /*bInterfaceSubClass : 1=BOOT, 0=no boot*/
     HID_MOUSE,                              /*nInterfaceProtocol : 0=none, 1=keyboard, 2=mouse*/
     0x00,                                   /*iInterface: Index of string descriptor*/
 
@@ -727,9 +727,9 @@ uint8_t gu8OtherConfigDescriptorFS[] __attribute__((aligned(4))) = {
     /****************** Descriptor of interface *********************/
     LEN_INTERFACE,                          /*bLength: Interface Descriptor size*/
     DESC_INTERFACE,                         /*bDescriptorType: Interface descriptor type*/
-    0x02,                                   /*bInterfaceNumber: Number of Interface*/
+    INTERFACE_3,                            /*bInterfaceNumber: Number of Interface*/
     0x00,                                   /*bAlternateSetting: Alternate setting*/
-    0x01,                                   /*bNumEndpoints*/
+    INTERFACE_3_EP_CNT,                     /*bNumEndpoints*/
     0x03,                                   /*bInterfaceClass: HID*/
     0x00,                                   /*bInterfaceSubClass : 1=Support Boot, 0=No boot*/
     HID_NONE,                               /*nInterfaceProtocol : 0=none, 1=keyboard, 2=mouse*/
@@ -758,13 +758,13 @@ uint8_t gu8OtherConfigDescriptorFS[] __attribute__((aligned(4))) = {
     /*-------------------    #ifc4:Custom#    -------------------------*/
     LEN_INTERFACE,                  /*bLength: Interface Descriptor size*/
     DESC_INTERFACE,                 /*bDescriptorType: Interface descriptor type*/
-    0x03,                           /*bInterfaceNumber: Number of Interface*/
+    INTERFACE_4,                    /*bInterfaceNumber: Number of Interface*/
     0x00,                           /*bAlternateSetting: Alternate setting*/
-    0x02,                           /*bNumEndpoints*/
+    INTERFACE_4_EP_CNT,             /*bNumEndpoints*/
     0x03,                           /*bInterfaceClass: CUSTOM_HID*/
     0x00,                           /*bInterfaceSubClass : 1=Support Boot, 0=No Boot*/
     HID_NONE,                       /*nInterfaceProtocol : 0=none, 1=keyboard, 2=mouse*/
-    0,                              /*iInterface: Index of string descriptor*/
+    0x00,                           /*iInterface: Index of string descriptor*/
 
     LEN_HID,                        /*bLength: CUSTOM_HID Descriptor size*/
     DESC_HID,                       /*bDescriptorType: CUSTOM_HID*/
