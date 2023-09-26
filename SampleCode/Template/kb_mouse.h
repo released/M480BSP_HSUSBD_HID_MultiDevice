@@ -56,22 +56,22 @@
 #define CEP_BUF_BASE            (0)
 #define CEP_BUF_LEN             CEP_MAX_PKT_SIZE
 
-#define EPA_BUF_BASE            (CEP_BUF_BASE + CEP_BUF_LEN)
+#define EPA_BUF_BASE            0x200   //(CEP_BUF_BASE + CEP_BUF_LEN)
 #define EPA_BUF_LEN             EPA_MAX_PKT_SIZE
 
-#define EPB_BUF_BASE            (EPA_BUF_BASE + EPA_BUF_LEN)
+#define EPB_BUF_BASE            (EPA_BUF_BASE + 0x400)   //(EPA_BUF_BASE + EPA_BUF_LEN)
 #define EPB_BUF_LEN             EPB_MAX_PKT_SIZE
 
-#define EPC_BUF_BASE            (EPB_BUF_BASE + EPB_BUF_LEN)
+#define EPC_BUF_BASE            (EPB_BUF_BASE + 0x400)   //(EPB_BUF_BASE + EPB_BUF_LEN)
 #define EPC_BUF_LEN             EPC_MAX_PKT_SIZE
 
-#define EPD_BUF_BASE            (EPC_BUF_BASE + EPC_BUF_LEN)
+#define EPD_BUF_BASE            (EPC_BUF_BASE + 0x400)   //(EPC_BUF_BASE + EPC_BUF_LEN)
 #define EPD_BUF_LEN             EPD_MAX_PKT_SIZE
 
-#define EPE_BUF_BASE            (EPD_BUF_BASE + EPD_BUF_LEN)
+#define EPE_BUF_BASE            (EPD_BUF_BASE + 0x400)   //(EPD_BUF_BASE + EPD_BUF_LEN)
 #define EPE_BUF_LEN             EPE_MAX_PKT_SIZE
 
-#define EPF_BUF_BASE            (EPE_BUF_BASE + EPE_BUF_LEN)
+#define EPF_BUF_BASE            (EPE_BUF_BASE + 0x400)   //(EPE_BUF_BASE + EPE_BUF_LEN)
 #define EPF_BUF_LEN             EPF_MAX_PKT_SIZE
 
 // #define EPG_BUF_BASE            (EPF_BUF_BASE + EPF_BUF_LEN)
@@ -133,6 +133,10 @@
 #define MOUSE_REPORT_ID     0x04
 
 #define REPORT_CUSTOM_SIZE  0x01
+
+
+void HID_InitForHighSpeed(void);
+void HID_InitForFullSpeed(void);
 
 void HID_Init(void);
 void HID_ClassRequest(void);

@@ -41,26 +41,6 @@ uint8_t HID_Keyboard_ReportDescriptor[] __attribute__((aligned(4))) = {
 };
 
 
-uint8_t HID_Vendorpage1_ReportDescriptor[] __attribute__((aligned(4))) = {
-    0x06, 0x06, 0xFF,       /* USAGE_PAGE (Vendor Defined)*/
-    0x09, 0x01,             /* USAGE (0x01)*/
-    0xA1, 0x01,             /* COLLECTION (Application)*/
-    0x15, 0x00,             /* LOGICAL_MINIMUM (0)*/
-    0x26, 0xFF, 0x00,       /* LOGICAL_MAXIMUM (255)*/
-    0x75, 0x08,             /* REPORT_SIZE (8)*/
-    0x96, 0x00, 0x02,       /* REPORT_COUNT*/
-    0x09, 0x01,
-    0x81, 0x02,             /* INPUT (Data,Var,Abs)*/
-    0x96, 0x00, 0x02,       /* REPORT_COUNT*/
-    0x09, 0x01,
-    0x91, 0x02,             /* OUTPUT (Data,Var,Abs)*/
-    0x95, 0x08,             /* REPORT_COUNT (8) */
-    0x09, 0x01,
-    0xB1, 0x02,             /* FEATURE */
-    0xC0,                   /* END_COLLECTION*/
-};
-
-
 uint8_t HID_Mouse_ReportDescriptor[] __attribute__((aligned(4))) = {
      0x05, 0x01,     /* Usage Page(Generic Desktop Controls) */
     0x09, 0x02,     /* Usage(Mouse) */
@@ -91,6 +71,25 @@ uint8_t HID_Mouse_ReportDescriptor[] __attribute__((aligned(4))) = {
     0xC0,           /* End Collection */
 };
 
+
+uint8_t HID_Vendorpage1_ReportDescriptor[] __attribute__((aligned(4))) = {
+    0x06, 0x06, 0xFF,       /* USAGE_PAGE (Vendor Defined)*/
+    0x09, 0x01,             /* USAGE (0x01)*/
+    0xA1, 0x01,             /* COLLECTION (Application)*/
+    0x15, 0x00,             /* LOGICAL_MINIMUM (0)*/
+    0x26, 0xFF, 0x00,       /* LOGICAL_MAXIMUM (255)*/
+    0x75, 0x08,             /* REPORT_SIZE (8)*/
+    0x96, 0x00, 0x02,       /* REPORT_COUNT*/
+    0x09, 0x01,
+    0x81, 0x02,             /* INPUT (Data,Var,Abs)*/
+    0x96, 0x00, 0x02,       /* REPORT_COUNT*/
+    0x09, 0x01,
+    0x91, 0x02,             /* OUTPUT (Data,Var,Abs)*/
+    0x95, 0x08,             /* REPORT_COUNT (8) */
+    0x09, 0x01,
+    0xB1, 0x02,             /* FEATURE */
+    0xC0,                   /* END_COLLECTION*/
+};
 
 uint8_t HID_Vendorpge2_ReportDescriptor[] __attribute__((aligned(4))) = {
     0x06, 0x01, 0xff,           // Usage Page

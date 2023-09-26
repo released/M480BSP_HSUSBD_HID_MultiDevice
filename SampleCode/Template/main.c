@@ -24,6 +24,9 @@ struct flag_32bit flag_PROJ_CTL;
 volatile unsigned int counter_systick = 0;
 volatile uint32_t counter_tick = 0;
 
+// TODO: set 1 under GPIO IRQ Handler
+uint8_t volatile bIsPressKey = 0;
+
 /*_____ M A C R O S ________________________________________________________*/
 
 /*_____ F U N C T I O N S __________________________________________________*/
@@ -135,6 +138,32 @@ void delay_ms(uint16_t ms)
 	TIMER_Delay(TIMER0, 1000*ms);
 	#endif
 }
+//
+// GPF_IRQHandler
+//
+
+void GPF_IRQHandler(void)
+{
+    if (GPIO_GET_INT_FLAG(PF, BIT11)) {
+        bIsPressKey = 1;
+        GPIO_CLR_INT_FLAG(PF, BIT11);
+    }
+}
+
+void hid_device_hw_init()
+{
+    SYS->GPF_MFPH &= ~(SYS_GPF_MFPH_PF11MFP_Msk);
+    SYS->GPF_MFPH |= (SYS_GPF_MFPH_PF11MFP_GPIO);
+
+    GPIO_SetMode(PF, BIT11, GPIO_MODE_INPUT);
+    GPIO_ENABLE_DEBOUNCE(PF, BIT11);
+
+    GPIO_SET_DEBOUNCE_TIME(GPIO_DBCTL_DBCLKSRC_LIRC, GPIO_DBCTL_DBCLKSEL_32);
+
+    GPIO_EnableInt(PF, 11, GPIO_INT_FALLING);
+    NVIC_EnableIRQ(GPF_IRQn);
+}
+
 
 void HID_Device_Init(void)
 {
@@ -504,6 +533,7 @@ int main()
     TickSetTickEvent(5000, TickCallback_processB);  // 5000 ms
     #endif
 
+    hid_device_hw_init();
     HID_Device_Init();
 
     /* Got no where to go, just loop forever */

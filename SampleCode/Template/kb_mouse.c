@@ -31,6 +31,24 @@ uint8_t volatile g_u8EPDReady = 0;
 uint8_t volatile g_u8EPEReady = 0;
 uint8_t volatile g_u8EPFReady = 0;
 
+uint32_t g_u32EpAMaxPacketSize = 0;
+uint32_t g_u32EpBMaxPacketSize = 0;
+uint32_t g_u32EpCMaxPacketSize = 0;
+uint32_t g_u32EpDMaxPacketSize = 0;
+uint32_t g_u32EpEMaxPacketSize = 0;
+uint32_t g_u32EpFMaxPacketSize = 0;
+
+//
+// Remote wakeup flag
+//
+extern uint8_t volatile g_hsusbd_RemoteWakeupEn;
+extern uint8_t volatile bIsPressKey;
+
+//
+// Suspend & Resume
+//
+static uint8_t volatile g_u8suspend = 0;
+
 static uint8_t volatile g_u8ReportProtocol = HID_REPORT_PROTOCOL;
 
 // signed char mouse_table[] = {-16, -16, -16, 0, 16, 16, 16, 0};
@@ -59,7 +77,24 @@ void USBD20_IRQHandler(void)
         }
         
         if (IrqSt & HSUSBD_BUSINTSTS_RSTIF_Msk) {
+
+            g_u8suspend = 0;
             HSUSBD_SwReset();
+
+            #if 1
+            HSUSBD_ResetDMA();
+            HSUSBD->EP[EPA].EPRSPCTL = HSUSBD_EPRSPCTL_FLUSH_Msk;
+            HSUSBD->EP[EPB].EPRSPCTL = HSUSBD_EPRSPCTL_FLUSH_Msk;
+            HSUSBD->EP[EPC].EPRSPCTL = HSUSBD_EPRSPCTL_FLUSH_Msk;
+            HSUSBD->EP[EPD].EPRSPCTL = HSUSBD_EPRSPCTL_FLUSH_Msk;
+            HSUSBD->EP[EPE].EPRSPCTL = HSUSBD_EPRSPCTL_FLUSH_Msk;
+            HSUSBD->EP[EPF].EPRSPCTL = HSUSBD_EPRSPCTL_FLUSH_Msk;
+
+            if (HSUSBD->OPER & 0x04)  /* high speed */
+                HID_InitForHighSpeed();
+            else                    /* full speed */
+                HID_InitForFullSpeed();
+            #endif
 
             HSUSBD_ENABLE_CEP_INT(HSUSBD_CEPINTEN_SETUPPKIEN_Msk);
             HSUSBD_SET_ADDR(0);
@@ -70,11 +105,13 @@ void USBD20_IRQHandler(void)
         }
 
         if (IrqSt & HSUSBD_BUSINTSTS_RESUMEIF_Msk) {
+            g_u8suspend = 0;
             HSUSBD_ENABLE_BUS_INT(HSUSBD_BUSINTEN_RSTIEN_Msk | HSUSBD_BUSINTEN_SUSPENDIEN_Msk);
             HSUSBD_CLR_BUS_INT_FLAG(HSUSBD_BUSINTSTS_RESUMEIF_Msk);
         }
 
         if (IrqSt & HSUSBD_BUSINTSTS_SUSPENDIF_Msk) {
+            g_u8suspend = 1;
             HSUSBD_ENABLE_BUS_INT(HSUSBD_BUSINTEN_RSTIEN_Msk | HSUSBD_BUSINTEN_RESUMEIEN_Msk);
             HSUSBD_CLR_BUS_INT_FLAG(HSUSBD_BUSINTSTS_SUSPENDIF_Msk);
         }
@@ -288,6 +325,104 @@ void USBD20_IRQHandler(void)
     }
 }
 
+void HID_InitForHighSpeed(void)
+{
+    /*****************************************************/
+    /* EPA ==> INT-IN EP, ADDR 1 */
+    HSUSBD_SetEpBufAddr(EPA, EPA_BUF_BASE, EPA_BUF_LEN);
+    HSUSBD_SET_MAX_PAYLOAD(EPA, EPA_MAX_PKT_SIZE);
+    HSUSBD_ConfigEp(EPA, KB_INT_IN_EP_NUM, HSUSBD_EP_CFG_TYPE_INT, HSUSBD_EP_CFG_DIR_IN);
+
+    g_u32EpAMaxPacketSize = EPA_MAX_PKT_SIZE;
+    /*****************************************************/
+    /* EPB ==> INT-OUT EP, ADDR 2 */
+    HSUSBD_SetEpBufAddr(EPB, EPB_BUF_BASE, EPB_BUF_LEN);
+    HSUSBD_SET_MAX_PAYLOAD(EPB, EPB_MAX_PKT_SIZE);
+    HSUSBD_ConfigEp(EPB, KB_INT_OT_EP_NUM, HSUSBD_EP_CFG_TYPE_INT, HSUSBD_EP_CFG_DIR_OUT);
+    HSUSBD_ENABLE_EP_INT(EPB, (HSUSBD_EPINTEN_RXPKIEN_Msk | HSUSBD_EPINTEN_BUFFULLIEN_Msk));
+
+    g_u32EpBMaxPacketSize = EPB_MAX_PKT_SIZE;
+    /*****************************************************/
+    /* EPC ==> INT-IN EP, ADDR 3 */
+    HSUSBD_SetEpBufAddr(EPC, EPC_BUF_BASE, EPC_BUF_LEN);
+    HSUSBD_SET_MAX_PAYLOAD(EPC, EPC_MAX_PKT_SIZE);
+    HSUSBD_ConfigEp(EPC, MOUSE_INT_IN_EP_NUM, HSUSBD_EP_CFG_TYPE_INT, HSUSBD_EP_CFG_DIR_IN);
+
+    g_u32EpCMaxPacketSize = EPC_MAX_PKT_SIZE;
+    /*****************************************************/
+    /* EPD ==> INT-IN EP, ADDR 4 */
+    HSUSBD_SetEpBufAddr(EPD, EPD_BUF_BASE, EPD_BUF_LEN);
+    HSUSBD_SET_MAX_PAYLOAD(EPD, EPD_MAX_PKT_SIZE);
+    HSUSBD_ConfigEp(EPD, VENDOR01_INT_IN_EP_NUM, HSUSBD_EP_CFG_TYPE_INT, HSUSBD_EP_CFG_DIR_IN);
+    
+    g_u32EpDMaxPacketSize = EPD_MAX_PKT_SIZE;
+    /*****************************************************/
+    /* EPE ==> INT-IN EP, ADDR 5 */
+    HSUSBD_SetEpBufAddr(EPE, EPE_BUF_BASE, EPE_BUF_LEN);
+    HSUSBD_SET_MAX_PAYLOAD(EPE, EPE_MAX_PKT_SIZE);
+    HSUSBD_ConfigEp(EPE, VENDOR02_INT_IN_EP_NUM, HSUSBD_EP_CFG_TYPE_INT, HSUSBD_EP_CFG_DIR_IN);
+    
+    g_u32EpEMaxPacketSize = EPE_MAX_PKT_SIZE;
+    /*****************************************************/
+    /* EPF ==> INT-OUT EP, ADDR 6 */
+    HSUSBD_SetEpBufAddr(EPF, EPF_BUF_BASE, EPF_BUF_LEN);
+    HSUSBD_SET_MAX_PAYLOAD(EPF, EPF_MAX_PKT_SIZE);
+    HSUSBD_ConfigEp(EPF, VENDOR02_INT_OT_EP_NUM, HSUSBD_EP_CFG_TYPE_INT, HSUSBD_EP_CFG_DIR_OUT);
+    HSUSBD_ENABLE_EP_INT(EPF, (HSUSBD_EPINTEN_RXPKIEN_Msk | HSUSBD_EPINTEN_BUFFULLIEN_Msk));
+
+    g_u32EpFMaxPacketSize = EPF_MAX_PKT_SIZE;
+
+}
+
+void HID_InitForFullSpeed(void)
+{
+    /*****************************************************/
+    /* EPA ==> INT-IN EP, ADDR 1 */
+    HSUSBD_SetEpBufAddr(EPA, EPA_BUF_BASE, EPA_BUF_LEN);
+    HSUSBD_SET_MAX_PAYLOAD(EPA, EPA_OTHER_MAX_PKT_SIZE);
+    HSUSBD_ConfigEp(EPA, KB_INT_IN_EP_NUM, HSUSBD_EP_CFG_TYPE_INT, HSUSBD_EP_CFG_DIR_IN);
+
+    g_u32EpAMaxPacketSize = EPA_OTHER_MAX_PKT_SIZE;
+    /*****************************************************/
+    /* EPB ==> INT-OUT EP, ADDR 2 */
+    HSUSBD_SetEpBufAddr(EPB, EPB_BUF_BASE, EPB_BUF_LEN);
+    HSUSBD_SET_MAX_PAYLOAD(EPB, EPB_OTHER_MAX_PKT_SIZE);
+    HSUSBD_ConfigEp(EPB, KB_INT_OT_EP_NUM, HSUSBD_EP_CFG_TYPE_INT, HSUSBD_EP_CFG_DIR_OUT);
+    HSUSBD_ENABLE_EP_INT(EPB, (HSUSBD_EPINTEN_RXPKIEN_Msk | HSUSBD_EPINTEN_BUFFULLIEN_Msk));
+
+    g_u32EpBMaxPacketSize = EPB_OTHER_MAX_PKT_SIZE;
+    /*****************************************************/
+    /* EPC ==> INT-IN EP, ADDR 3 */
+    HSUSBD_SetEpBufAddr(EPC, EPC_BUF_BASE, EPC_BUF_LEN);
+    HSUSBD_SET_MAX_PAYLOAD(EPC, EPC_OTHER_MAX_PKT_SIZE);
+    HSUSBD_ConfigEp(EPC, MOUSE_INT_IN_EP_NUM, HSUSBD_EP_CFG_TYPE_INT, HSUSBD_EP_CFG_DIR_IN);
+
+    g_u32EpCMaxPacketSize = EPC_OTHER_MAX_PKT_SIZE;
+    /*****************************************************/
+    /* EPD ==> INT-IN EP, ADDR 4 */
+    HSUSBD_SetEpBufAddr(EPD, EPD_BUF_BASE, EPD_BUF_LEN);
+    HSUSBD_SET_MAX_PAYLOAD(EPD, EPD_OTHER_MAX_PKT_SIZE);
+    HSUSBD_ConfigEp(EPD, VENDOR01_INT_IN_EP_NUM, HSUSBD_EP_CFG_TYPE_INT, HSUSBD_EP_CFG_DIR_IN);
+    
+    g_u32EpDMaxPacketSize = EPD_OTHER_MAX_PKT_SIZE;
+    /*****************************************************/
+    /* EPE ==> INT-IN EP, ADDR 5 */
+    HSUSBD_SetEpBufAddr(EPE, EPE_BUF_BASE, EPE_BUF_LEN);
+    HSUSBD_SET_MAX_PAYLOAD(EPE, EPE_OTHER_MAX_PKT_SIZE);
+    HSUSBD_ConfigEp(EPE, VENDOR02_INT_IN_EP_NUM, HSUSBD_EP_CFG_TYPE_INT, HSUSBD_EP_CFG_DIR_IN);
+    
+    g_u32EpEMaxPacketSize = EPE_OTHER_MAX_PKT_SIZE;
+    /*****************************************************/
+    /* EPF ==> INT-OUT EP, ADDR 6 */
+    HSUSBD_SetEpBufAddr(EPF, EPF_BUF_BASE, EPF_BUF_LEN);
+    HSUSBD_SET_MAX_PAYLOAD(EPF, EPF_OTHER_MAX_PKT_SIZE);
+    HSUSBD_ConfigEp(EPF, VENDOR02_INT_OT_EP_NUM, HSUSBD_EP_CFG_TYPE_INT, HSUSBD_EP_CFG_DIR_OUT);
+    HSUSBD_ENABLE_EP_INT(EPF, (HSUSBD_EPINTEN_RXPKIEN_Msk | HSUSBD_EPINTEN_BUFFULLIEN_Msk));
+
+    g_u32EpFMaxPacketSize = EPF_OTHER_MAX_PKT_SIZE;
+}
+
+
 //
 // HID_Init
 //
@@ -311,44 +446,8 @@ void HID_Init(void)
     /* Control endpoint */
     HSUSBD_SetEpBufAddr(CEP, CEP_BUF_BASE, CEP_BUF_LEN);
     HSUSBD_ENABLE_CEP_INT(HSUSBD_CEPINTEN_SETUPPKIEN_Msk | HSUSBD_CEPINTEN_STSDONEIEN_Msk);
-
-    /*****************************************************/
-    /* EPA ==> INT-IN EP, ADDR 1 */
-    HSUSBD_SetEpBufAddr(EPA, EPA_BUF_BASE, EPA_BUF_LEN);
-    HSUSBD_SET_MAX_PAYLOAD(EPA, EPA_MAX_PKT_SIZE);
-    HSUSBD_ConfigEp(EPA, KB_INT_IN_EP_NUM, HSUSBD_EP_CFG_TYPE_INT, HSUSBD_EP_CFG_DIR_IN);
-
-    /*****************************************************/
-    /* EPB ==> INT-OUT EP, ADDR 2 */
-    HSUSBD_SetEpBufAddr(EPB, EPB_BUF_BASE, EPB_BUF_LEN);
-    HSUSBD_SET_MAX_PAYLOAD(EPB, EPB_MAX_PKT_SIZE);
-    HSUSBD_ConfigEp(EPB, KB_INT_OT_EP_NUM, HSUSBD_EP_CFG_TYPE_INT, HSUSBD_EP_CFG_DIR_OUT);
-    HSUSBD_ENABLE_EP_INT(EPB, (HSUSBD_EPINTEN_RXPKIEN_Msk | HSUSBD_EPINTEN_BUFFULLIEN_Msk));
-
-    /*****************************************************/
-    /* EPC ==> INT-IN EP, ADDR 3 */
-    HSUSBD_SetEpBufAddr(EPC, EPC_BUF_BASE, EPC_BUF_LEN);
-    HSUSBD_SET_MAX_PAYLOAD(EPC, EPC_MAX_PKT_SIZE);
-    HSUSBD_ConfigEp(EPC, MOUSE_INT_IN_EP_NUM, HSUSBD_EP_CFG_TYPE_INT, HSUSBD_EP_CFG_DIR_IN);
-
-    /*****************************************************/
-    /* EPD ==> INT-IN EP, ADDR 4 */
-    HSUSBD_SetEpBufAddr(EPD, EPD_BUF_BASE, EPD_BUF_LEN);
-    HSUSBD_SET_MAX_PAYLOAD(EPD, EPD_MAX_PKT_SIZE);
-    HSUSBD_ConfigEp(EPD, VENDOR01_INT_IN_EP_NUM, HSUSBD_EP_CFG_TYPE_INT, HSUSBD_EP_CFG_DIR_IN);
     
-    /*****************************************************/
-    /* EPE ==> INT-IN EP, ADDR 5 */
-    HSUSBD_SetEpBufAddr(EPE, EPE_BUF_BASE, EPE_BUF_LEN);
-    HSUSBD_SET_MAX_PAYLOAD(EPE, EPE_MAX_PKT_SIZE);
-    HSUSBD_ConfigEp(EPE, VENDOR02_INT_IN_EP_NUM, HSUSBD_EP_CFG_TYPE_INT, HSUSBD_EP_CFG_DIR_IN);
-    
-    /*****************************************************/
-    /* EPF ==> INT-OUT EP, ADDR 6 */
-    HSUSBD_SetEpBufAddr(EPF, EPF_BUF_BASE, EPF_BUF_LEN);
-    HSUSBD_SET_MAX_PAYLOAD(EPF, EPF_MAX_PKT_SIZE);
-    HSUSBD_ConfigEp(EPF, VENDOR02_INT_OT_EP_NUM, HSUSBD_EP_CFG_TYPE_INT, HSUSBD_EP_CFG_DIR_OUT);
-    HSUSBD_ENABLE_EP_INT(EPF, (HSUSBD_EPINTEN_RXPKIEN_Msk | HSUSBD_EPINTEN_BUFFULLIEN_Msk));
+    HID_InitForHighSpeed();
 
     /* start to IN data */
     g_u8EPAReady = 1;
@@ -559,32 +658,59 @@ void EPF_Handler(void)
     printf("\r\n");
 }
 
+
 //
-// HID_Handler
+// remoteWakeupProcess
 //
-void HID_Handler(void)
+void HID_RemoteWakeupProcess(void)
+{
+    if (g_hsusbd_RemoteWakeupEn) {
+        if (bIsPressKey) {
+            bIsPressKey = 0;
+            printf("Remote wake-up\r\n");
+            if ((HSUSBD->OPER & HSUSBD_OPER_RESUMEEN_Msk) != 1) {
+                HSUSBD->OPER |= HSUSBD_OPER_RESUMEEN_Msk;
+                while(HSUSBD->OPER & HSUSBD_OPER_RESUMEEN_Msk);
+            }
+        }
+    }
+}
+
+//
+// HID_powerDownHandler
+//
+void HID_powerDownHandler(void)
+{  
+    if (g_u8suspend)
+    {
+        //
+        // Perform remote wake-up
+        //
+        HID_RemoteWakeupProcess();
+    }
+}
+
+void HID_UpdateKeyboardData(void)
 {
     static uint8_t epa_test_count = 0;
-    static uint8_t epd_test_count = 0;
-    static uint8_t epe_test_count = 0;
-
-    uint8_t epa_buf[4];
-    uint8_t epc_buf[4];
-    uint8_t epd_buf[5];
-    uint8_t epe_buf[4];
-
     int volatile i;
+    const uint8_t len = 4;
+    uint8_t epa_buf[len] = {0};
 
     if (g_u8EPAReady) {
+
+        for(i = 0; i < len; i++)
+            epa_buf[i] = 0;
+
         /* Update new report data */
-        epa_buf[0] = 0xA0;
-        epa_buf[1] = 0xA1;
-        epa_buf[2] = 0xA2;
+        epa_buf[0] = 0x00;
+        epa_buf[1] = 0x00;
+        epa_buf[2] = 0x00;
         epa_buf[3] = epa_test_count++;
         g_u8EPAReady = 0;
         
         /* Set transfer length and trigger IN transfer */
-        for (i = 0; i < 4; i++) {
+        for (i = 0; i < len; i++) {
             HSUSBD->EP[EPA].EPDAT_BYTE = epa_buf[i];
         }
 
@@ -592,10 +718,21 @@ void HID_Handler(void)
         HSUSBD_ENABLE_EP_INT(EPA, HSUSBD_EPINTEN_INTKIEN_Msk);
 
         printf("g_u8EPAReady\r\n");
-    }
-    
+    }    
+}
+
+
+void HID_UpdateMouseData(void)
+{
+    int volatile i;    
+    const uint8_t len = 4;
+    uint8_t epc_buf[len] = {0};
+
     if (g_u8EPCReady) {
         
+        for(i = 0; i < len; i++)
+            epc_buf[i] = 0;
+
         /* Update new report data */
         epc_buf[0] = 0x00;
         epc_buf[1] = 0x00;
@@ -604,7 +741,7 @@ void HID_Handler(void)
         g_u8EPCReady = 0;
         
         /* Set transfer length and trigger IN transfer */
-        for (i = 0; i < 4; i++) {
+        for (i = 0; i < len; i++) {
             HSUSBD->EP[EPC].EPDAT_BYTE = epc_buf[i];
         }
 
@@ -613,6 +750,25 @@ void HID_Handler(void)
 
         printf("g_u8EPCReady\r\n");
     }
+}
+
+//
+// HID_Handler
+//
+void HID_Handler(void)
+{
+    uint32_t len = 0;
+    static uint8_t epd_test_count = 0;
+    static uint8_t epe_test_count = 0;
+
+    uint8_t epd_buf[EPD_MAX_PKT_SIZE] = {0};
+    uint8_t epe_buf[EPE_MAX_PKT_SIZE] = {0};
+
+    int volatile i;
+
+    HID_powerDownHandler();
+    HID_UpdateKeyboardData();
+    HID_UpdateMouseData();
     
     if (g_u8EPDReady) {
 
@@ -623,12 +779,15 @@ void HID_Handler(void)
         epd_buf[3] = epd_test_count++;
         g_u8EPDReady = 0;
         
+        len = g_u32EpDMaxPacketSize;
         /* Set transfer length and trigger IN transfer */
         for (i = 0; i < 4; i++) {
+            // check REPORT_COUNT
             HSUSBD->EP[EPD].EPDAT_BYTE = epd_buf[i];
         }
 
         HSUSBD->EP[EPD].EPRSPCTL = HSUSBD_EP_RSPCTL_SHORTTXEN;
+        HSUSBD->EP[EPD].EPTXCNT = len;
         HSUSBD_ENABLE_EP_INT(EPD, HSUSBD_EPINTEN_INTKIEN_Msk);
 
         printf("g_u8EPDReady\r\n");
@@ -641,13 +800,16 @@ void HID_Handler(void)
         epe_buf[2] = 0xE2;
         epe_buf[3] = epe_test_count++;
         g_u8EPEReady = 0;
-        
+                
+        len = g_u32EpEMaxPacketSize;
         /* Set transfer length and trigger IN transfer */
         for (i = 0; i < 4; i++) {
+            // check REPORT_COUNT
             HSUSBD->EP[EPE].EPDAT_BYTE = epe_buf[i];
         }
 
         HSUSBD->EP[EPE].EPRSPCTL = HSUSBD_EP_RSPCTL_SHORTTXEN;
+        HSUSBD->EP[EPE].EPTXCNT = len;
         HSUSBD_ENABLE_EP_INT(EPE, HSUSBD_EPINTEN_INTKIEN_Msk);
 
         printf("g_u8EPEReady\r\n");

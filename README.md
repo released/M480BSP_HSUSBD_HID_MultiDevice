@@ -32,7 +32,7 @@ update @ 2023/09/06
 
 5. below is BUS_Hound capture when transmit end point A , C , D , E to PC host
 
-![image](https://github.com/released/M480BSP_HSUSBD_HID_MultiDevice/blob/main/UBUS_Hound_capture_log.jpg)
+![image](https://github.com/released/M480BSP_HSUSBD_HID_MultiDevice/blob/main/BUS_Hound_capture_log.jpg)
 
 
 
